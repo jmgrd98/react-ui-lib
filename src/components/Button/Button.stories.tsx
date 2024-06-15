@@ -15,6 +15,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
-        title: 'Click me'
+        title: 'Click me',
+        variant: 'solid',
+        size: 'medium',
+        colorScheme: 'primary',
     },
 }

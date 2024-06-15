@@ -1,5 +1,6 @@
-import { cva } from "class-variance-authority";
+import { cva, VariantProps } from "class-variance-authority";
 import { ComponentProps } from "react";
+import { cn } from "../../utils";
 
 const buttonStyles = cva([
     'w-full',
@@ -78,11 +79,17 @@ const buttonStyles = cva([
     }
 );
 
-type ButtonProps = ComponentProps<"button">;
+type ButtonProps = ComponentProps<"button"> & VariantProps<typeof buttonStyles>;
 
-export const Button = ({...props}: ButtonProps) => {
+export const Button = ({
+    variant,
+    size,
+    colorScheme,
+    className,
+    ...props
+}: ButtonProps) => {
   return (
-    <button className='bg-black text-blue-500' {...props}>
+    <button className={cn(buttonStyles({variant, size, colorScheme}))} {...props}>
       {props.title}
     </button>
   )
