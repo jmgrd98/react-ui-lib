@@ -29,7 +29,7 @@ export const Outline: Story = {
 
 export const Ghost: Story = {
     args: {
-        title: 'Click me',
+        children: 'Click me',
         variant: 'ghost',
     },
 }
