@@ -1,5 +1,5 @@
 import { cva, VariantProps } from "class-variance-authority";
-import { ComponentProps } from "react";
+import { ComponentProps, forwardRef } from "react";
 import { cn } from "../../utils";
 
 const buttonStyles = cva([
@@ -23,76 +23,53 @@ const buttonStyles = cva([
                 ],
             },
             size: {
-                small: ['text-sm', 'py-1', 'px-2'],
-                medium: ['text-base', 'py-2', 'px-4'],
-                large: ['text-lg', 'py-4', 'px-8']
+                sm: 'px-4 py-2 text-sm',
+                md: 'px-4 py-2 text-base',
+                lg: 'px-6 py-3 text-lg'
             },
             colorScheme: {
-                primary: [
-                    'bg-blue-500',
-                    'text-white',
-                    'hover:bg-blue-600',
-                    'active:bg-blue-700'
-                ],
-                secondary: [
-                    'bg-white',
-                    'text-black',
-                    'hover:bg-gray-100',
-                    'active:bg-gray-200'
-                ],
-                destructive: [
-                    'bg-red-500',
-                    'text-white',
-                    'hover:bg-red-600',
-                    'active:bg-red-700'
-                ],
-                success: [
-                    'bg-green-500',
-                    'text-white',
-                    'hover:bg-green-600',
-                    'active:bg-green-700'
-                ],
+                primary: "text-white"
             },
         },
         compoundVariants: [
             {
                 variant: 'solid',
                 colorScheme: 'primary',
-                className: 'text-white',
+                className: 'bg-primary-500 hover:bg-primary-600',
             },
             {
-                variant: 'solid',
-                colorScheme: 'secondary',
-                className: 'text-black',
+                variant: 'outline',
+                colorScheme: 'primary',
+                className: 'text-primary-600 border-primary-500 bg-transparent hover:bg-primary-100',
             },
             {
-                variant: 'solid',
-                colorScheme: 'destructive',
-                className: 'text-white',
+                variant: 'ghost',
+                colorScheme: 'primary',
+                className: 'text-primary-600 bg-transparent hover:bg-primary-100',
             },
-            {
-                variant: 'solid',
-                colorScheme: 'success',
-                className: 'text-white',
-            },
-        ]
+        ],
+        defaultVariants: {
+            variant: "solid",
+            size: "md",
+            colorScheme: "primary"
+        }
     }
 );
 
 type ButtonProps = ComponentProps<"button"> & VariantProps<typeof buttonStyles>;
 
-export const Button = ({
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
     variant,
     size,
     colorScheme,
     className,
     ...props
-}: ButtonProps) => {
-  return (
-    <button className={cn(buttonStyles({variant, size, colorScheme}))} {...props}>
-      {props.title}
-    </button>
-  )
-}
+}, ref) => {
+    return (
+        <button ref={ref} className={cn(buttonStyles({variant, size, colorScheme}))} {...props}>
+          {props.title}
+        </button>
+    )
+})
 
 export default Button
