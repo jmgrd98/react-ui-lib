@@ -1,7 +1,7 @@
 import { cva, VariantProps } from "class-variance-authority";
 import { forwardRef } from "react";
-import { PolymorphicComponentPropsWithRef, PolymorphicRef } from "../../utils/types";
-import { cn } from "../../utils";
+import { PolymorphicComponentPropsWithRef, PolymorphicRef } from "../../../utils/types";
+import { cn } from "../../../utils";
 
 const textStyles = cva('w-full', {
     variants: {

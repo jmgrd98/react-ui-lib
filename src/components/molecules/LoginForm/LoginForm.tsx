@@ -1,8 +1,8 @@
-import { Box } from '../Layout/Box/Box'
-import Stack from '../Layout/Stack/Stack'
-import { Text } from '../Text/Text'
-import { Input } from '../Input/Input'
-import Button from '../Button/Button'
+import { Box } from '../../Layout/Box/Box'
+import Stack from '../../Layout/Stack/Stack'
+import { Text } from '../../atoms/Text/Text'
+import { Input } from '../../atoms/Input/Input'
+import Button from '../../atoms/Button/Button'
 
 const LoginForm = () => {
   return (
