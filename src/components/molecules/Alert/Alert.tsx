@@ -1,13 +1,14 @@
 import { VariantProps, cva } from "class-variance-authority";
-import { ComponentProps, forwardRef } from "react";
+import { ComponentProps, forwardRef, ReactElement } from "react";
 import { cn } from "../../../utils";
 import Card from "../Card/Card";
 
-const cardStyles = cva('w-full rounded-lg shadow-lg bg-white p-5 flex flex-col justify-evenly');
+const alertStyles = cva('w-full rounded-lg shadow-lg bg-white p-5 flex flex-col justify-evenly');
 
-type AlertProps = ComponentProps<'div'> & VariantProps<typeof cardStyles> & {
+type AlertProps = ComponentProps<'div'> & VariantProps<typeof alertStyles> & {
     width?: number | string;
-    height?: number | string ;
+    height?: number | string;
+    icon?: ReactElement;  // New prop to accept a React element
 };
 
 const Alert = forwardRef<HTMLDivElement, AlertProps>(({
@@ -15,11 +16,12 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(({
     children,
     width,
     height,
+    icon,  // Destructure the icon prop
     ...props
 }, ref) => {
     const inlineStyles = {
-        width: typeof width === 'number' ? `w-[${width}px]` : width,
-        height: typeof height === 'number' ? `h-[${height}px]` : height,
+        width: typeof width === 'number' ? `${width}px` : width,
+        height: typeof height === 'number' ? `${height}px` : height,
     };
 
     return (
@@ -28,9 +30,10 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(({
             height={height}
             ref={ref}
             style={inlineStyles}
-            className={cn(cardStyles(), className)}
+            className={cn(alertStyles(), className)}
             {...props}
         >
+            {icon && <div className="icon-container mb-2">{icon}</div>}
             {children}
         </Card>
     );

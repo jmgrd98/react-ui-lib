@@ -17,8 +17,8 @@ const Card = forwardRef<HTMLDivElement, CardProps>(({
     ...props
 }, ref) => {
     const inlineStyles = {
-        width: typeof width === 'number' ? `w-[${width}px]` : width,
-        height: typeof height === 'number' ? `h-[${height}px]` : height,
+        width: typeof width === 'number' ? `${width}px` : width,
+        height: typeof height === 'number' ? `${height}px` : height,
     };
 
     return (

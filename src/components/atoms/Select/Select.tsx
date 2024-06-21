@@ -15,6 +15,10 @@ const selectStyles = cva('', {
             lg: 'px-4 py-3 text-lg',
             xl: 'px-5 py-4 text-xl',
         },
+        state: {
+            disabled: 'opacity-50 cursor-not-allowed',
+            error: 'border-red-500 text-red-600',
+        },
     },
     compoundVariants: [],
     defaultVariants: {
@@ -26,14 +30,14 @@ const selectStyles = cva('', {
 type SelectProps = ComponentProps<'select'> & VariantProps<typeof selectStyles> & {
     onChange?: (event: ChangeEvent<HTMLSelectElement>) => void;
     options: { label: string; value: string }[];
+    error?: boolean;
 };
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
-    size,
-    shape,
-    color,
     options,
     className,
+    disabled,
+    error,
     onChange,
     ...props
 }, ref) => {
@@ -56,21 +60,25 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
     }, []);
 
     const toggleDropdown = () => {
-        setIsOpen(!isOpen);
+        if (!disabled) {
+            setIsOpen(!isOpen);
+        }
     };
 
     const handleOptionClick = (value: string) => {
-        setSelectedOption(value);
-        setIsOpen(false);
-        if (onChange) {
-            const selectedOption = options.find(option => option.value === value);
-            if (selectedOption) {
-                onChange({
-                    target: {
-                        value: selectedOption.value,
-                        name: props.name || '',
-                    },
-                } as ChangeEvent<HTMLSelectElement>);
+        if (!disabled) {
+            setSelectedOption(value);
+            setIsOpen(false);
+            if (onChange) {
+                const selectedOption = options.find(option => option.value === value);
+                if (selectedOption) {
+                    onChange({
+                        target: {
+                            value: selectedOption.value,
+                            name: props.name || '',
+                        },
+                    } as ChangeEvent<HTMLSelectElement>);
+                }
             }
         }
     };
@@ -80,14 +88,14 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
             <div
                 className={cn(
                     'appearance-none border-2 focus:outline-none cursor-pointer flex items-center justify-between',
-                    selectStyles({ size, shape }),
-                    color,
-                    'bg-white text-gray-800',
+                    selectStyles({ state: disabled ? 'disabled' : error ? 'error' : undefined }),
+                    error ? 'text-red-600' : 'bg-white text-gray-800',
                     'border-gray-300',
                     'rounded',
-                    'hover:border-gray-400',
+                    error ? '' : 'hover:border-gray-400',
                     'focus:border-blue-500',
                     'py-2 px-4',
+                    error ? 'border-red-600' : 'border-gray-300',
                     className
                 )}
                 onClick={toggleDropdown}
@@ -99,7 +107,8 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
                         'transform',
                         isOpen ? 'rotate-180' : 'rotate-0',
                         'transition-transform',
-                        'duration-300'
+                        'duration-300',
+                        error ? 'text-red-600' : 'text-gray-600'
                     )}
                 />
             </div>
