@@ -41,4 +41,18 @@ export const Date: Story = {
     },
 };
 
+export const CPF: Story = {
+    args: {
+        type: 'cpf',
+        placeholder: 'Digite seu CPF'
+    }
+};
+
+export const CNPJ: Story = {
+    args: {
+        type: 'cnpj',
+        placeholder: 'Digite seu CNPJ'
+    }
+}
+
 

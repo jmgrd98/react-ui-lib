@@ -1,4 +1,3 @@
-import React from 'react'
 import { Box } from '../Layout/Box/Box'
 import Stack from '../Layout/Stack/Stack'
 import { Text } from '../Text/Text'
@@ -29,26 +28,16 @@ const LoginForm = () => {
                 Please enter your credentials to login
             </Text>
 
-            <Text as='label' htmlFor="username" size={'sm'} weight={'medium'} className='mb-1.5'>
-                Username
-            </Text>
             <Input
+                label='Username'
                 type='text'
                 id='username'
                 placeholder='Username'
                 className='mb-4'
             />
 
-            <Text
-                as='label'
-                htmlFor="password"
-                size={'sm'}
-                weight={'medium'}
-                className='mb-1.5'
-            >
-                Password
-            </Text>
             <Input
+                label='Password'
                 type='password'
                 id='password'
                 placeholder='Password'
