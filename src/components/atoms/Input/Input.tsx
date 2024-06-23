@@ -21,7 +21,7 @@ const inputStyles = cva([
 
 type InputProps = ComponentProps<"input"> & {
     label?: string;
-    type?: 'text' | 'password' | 'number' | 'date' | 'cpf' | 'cnpj'; // Add 'number' and 'date' types
+    type?: 'text' | 'password' | 'number' | 'date' | 'cpf' | 'cnpj';
 } & VariantProps<typeof inputStyles>;
 
 const formatCpf = (value: string) => {
@@ -61,12 +61,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
             case 'cnpj':
                 value = formatCnpj(value);
                 break;
-            // Additional cases for 'number' and 'date' handling
             case 'number':
                 value = value.replace(/\D/g, ''); // Remove non-numeric characters
                 break;
             case 'date':
-                // Implement date formatting logic if needed
                 break;
             default:
                 break;
@@ -79,13 +77,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
         setShowPassword(!showPassword);
     };
 
+    const inputType = type === 'password' && showPassword ? 'text' : type;
+
     return (
         <>
-            {label && <Text as="label" htmlFor="username" size={'sm'} weight={'medium'} className='mb-1.5'>{label}</Text>}
+            {label && <Text as="label" htmlFor={props.id} size={'sm'} weight={'medium'} className='mb-1.5'>{label}</Text>}
             <div className="relative">
                 <input
                     ref={ref}
-                    type={type === 'password' && !showPassword ? 'password' : 'text'}
+                    type={inputType}
                     placeholder={placeholder}
                     autoComplete="off"
                     className={cn(inputStyles({ className }))}
@@ -105,3 +105,5 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
         </>
     );
 });
+
+export default Input;

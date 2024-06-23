@@ -1,35 +1,50 @@
-import { useState } from 'react';
-import Card from '../Card/Card';
-import Button from '../../atoms/Button/Button';
+import { forwardRef, ReactNode, CSSProperties } from "react";
+import { cn } from "../../../utils";
+import Card from "../Card/Card";
 
-const Modal = () => {
-    const [isOpen, setIsOpen] = useState(false);
+export type ModalProps = {
+    isOpen: boolean;
+    onClose: () => void;
+    width?: number | string;
+    height?: number | string;
+    children: ReactNode;
+};
 
-    const openModal = () => {
-        setIsOpen(true);
-    };
+const Modal = forwardRef<HTMLDivElement, ModalProps>(({
+    isOpen,
+    onClose,
+    width,
+    height,
+    children,
+    ...props
+}, ref) => {
+    if (!isOpen) return null;
 
-    const closeModal = () => {
-        setIsOpen(false);
+    const inlineStyles: CSSProperties = {
+        width: typeof width === 'number' ? `${width}px` : width,
+        height: typeof height === 'number' ? `${height}px` : height,
     };
 
     return (
-        <div>
-            <Button onClick={openModal}>Open Modal</Button>
-            {isOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                    {/* Modal container */}
-                    <Card width={400} height={300} className="relative z-50">
-                        <div className="absolute top-0 right-0 p-2">
-                            <Button onClick={closeModal}>Close Modal</Button>
-                        </div>
-                        <h2 className="text-xl font-bold mb-4">Modal Title</h2>
-                        <p className="mb-4">This is a modal. Click the button below to close it.</p>
-                    </Card>
-                </div>
-            )}
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <Card
+                width={width}
+                height={height}
+                ref={ref}
+                style={inlineStyles}
+                className="relative"
+                {...props}
+            >
+                <button
+                    onClick={onClose}
+                    className="absolute top-2 right-2 text-gray-700 hover:text-gray-900"
+                >
+                    ✖
+                </button>
+                {children}
+            </Card>
         </div>
     );
-};
+});
 
 export default Modal;

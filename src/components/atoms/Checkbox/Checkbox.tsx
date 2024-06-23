@@ -16,7 +16,6 @@ const checkboxStyles = cva('', {
             xl: 'w-7 h-7',
         },
     },
-    compoundVariants: [],
     defaultVariants: {
         shape: 'square',
         size: 'base',

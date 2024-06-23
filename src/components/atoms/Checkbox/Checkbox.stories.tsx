@@ -17,14 +17,14 @@ type Story = StoryObj<typeof meta>;
 export const Square: Story = {
     args: {
         shape: 'square',
-        color: 'text-blue-500',
+        color: '#00ffd0',
     },
 }
 
 export const Round: Story = {
     args: {
         shape: 'round',
-        color: 'text-purple-500'
+        color: '#00ffd0',
     }
 }
 

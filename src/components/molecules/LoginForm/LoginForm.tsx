@@ -45,12 +45,11 @@ const LoginForm = () => {
             />
 
             <Button
+                label='Login'
                 type='submit'
                 variant={'solid'}
-                className='mb-10'
-            >
-                    Login
-            </Button>
+                className='bg-blue-500 hover:bg-blue-600 text-white mb-10'
+            />
         </Stack>
     </Box>
   )

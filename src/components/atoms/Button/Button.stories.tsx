@@ -14,36 +14,35 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const SolidPrimary: Story = (args: any) => (
-    <Button {...args} variant="solid" color="bg-blue-500 text-white">
-        Solid Primary Button
-    </Button>
+export const Solid: Story = (args: any) => (
+    <Button {...args} variant="solid" label="Solid Button" />
 );
 
-SolidPrimary.args = {
+Solid.args = {
     size: 'md',
+    className: '',
+    backgroundColor: '#30c422',
     onClick: () => alert("Button clicked"),
 };
 
-export const OutlineSuccess: Story = (args: any) => (
-    <Button {...args} variant="outline" color='text-primary-600'>
-        Outline Success Button
-    </Button>
+export const Outline: Story = (args: any) => (
+    <Button {...args} variant="outline" label="Outline Button" />
 );
 
-OutlineSuccess.args = {
+Outline.args = {
     size: 'md',
-    variant: 'outline',
+    className: '',
+    backgroundColor: '#30c422',
     onClick: () => alert("Button clicked"),
 };
 
-export const GhostCustom: Story = (args: any) => (
-    <Button {...args} variant="ghost" color="text-purple-500">
-        Ghost Custom Button
-    </Button>
+export const Ghost: Story = (args: any) => (
+    <Button {...args} variant="ghost" label="Ghost Button" />
 );
 
-GhostCustom.args = {
+Ghost.args = {
     size: 'md',
+    className: '',
+    backgroundColor: '#30c422',
     onClick: () => alert("Button clicked"),
 };

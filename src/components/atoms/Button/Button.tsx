@@ -11,64 +11,78 @@ const buttonStyles = cva([
 ], {
     variants: {
         variant: {
-            solid: [],
-            outline: ['border-2'],
+            solid: ['transition-colors duration-300'],
+            outline: ['transition-colors duration-300 border-2'],
             ghost: ['transition-colors duration-300'],
         },
         size: {
             sm: 'w-20 px-2 py-2 text-sm',
-            md: 'w-1/2 px-4 py-2 text-base',
+            md: 'w-full px-4 py-2 text-base',
             lg: 'px-6 py-3 text-lg',
         },
-        colorScheme: {
-            primary: "text-white bg-primary-500 hover:bg-primary-600",
-            success: "text-white bg-success-500 hover:bg-success-600",
-            danger: "text-white bg-danger-500 hover:bg-danger-600",
-            alert: "text-black bg-yellow-500 hover:bg-yellow-600",
-        },
     },
-    compoundVariants: [
-        {
-            variant: 'outline',
-            className: 'bg-transparent text-opacity-90 border-opacity-90',
-        },
-        {
-            variant: 'ghost',
-            className: 'text-opacity-90',
-        },
-    ],
     defaultVariants: {
         variant: "solid",
         size: "md",
-        colorScheme: "primary"
     }
 });
 
 type ButtonProps = ComponentProps<"button"> & VariantProps<typeof buttonStyles> & {
-    color?: string;
+    backgroundColor?: string;
+    label: string;
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
     variant,
     size,
-    color,
+    backgroundColor,
+    label,
     className,
     onClick,
     ...props
 }, ref) => {
     const buttonClass = cn(
         buttonStyles({ variant, size }),
-        color,
         className
     );
+
+    const dynamicStyle = backgroundColor ? { backgroundColor } : {};
+
+    const outlineStyle = backgroundColor
+        ? { borderColor: backgroundColor, color: backgroundColor }
+        : {};
+
+    const combinedStyles = 
+        variant === 'solid' ? dynamicStyle :
+        variant === 'outline' ? outlineStyle :
+        {};
+
+    const hoverEffectStyles = 
+        variant === 'solid' ? { backgroundColor: `${backgroundColor}90` } :
+        variant === 'outline' ? { backgroundColor: `${backgroundColor}20` } :
+        variant === 'ghost' ? { backgroundColor: `${backgroundColor}20` } : {};
+
+    const ghostStyles = variant === 'ghost' && backgroundColor ? {
+        color: backgroundColor,
+        backgroundColor: 'transparent'
+    } : {};
 
     return (
         <button
             ref={ref}
             className={buttonClass}
+            style={{ ...combinedStyles, ...ghostStyles }}
             onClick={onClick}
             {...props}
-        />
+            onMouseEnter={(e) => {
+                Object.assign(e.currentTarget.style, hoverEffectStyles);
+            }}
+            onMouseLeave={(e) => {
+                Object.assign(e.currentTarget.style, combinedStyles, ghostStyles);
+            }}
+        >
+            {label}
+        </button>
     );
 });
 

@@ -21,11 +21,10 @@ export const Vertical: Story = (args: any) => (
             <h2 className="text-xl font-bold mb-2">Card Title 1</h2>
             <p className="text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
             <Button
+                label="Action"
                 variant={'solid'}
                 className="mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md"
-            >
-                Action
-            </Button>
+            />
         </Card>
     </div>
 );
@@ -41,11 +40,10 @@ export const Horizontal: Story = (args: any) => (
             <h2 className="text-xl font-bold mb-2">Card Title 1</h2>
             <p className="text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
             <Button
+                label="Action"
                 variant={'solid'}
                 className="mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md"
-            >
-                Action
-            </Button>
+            />
         </Card>
     </div>
 );

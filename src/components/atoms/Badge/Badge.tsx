@@ -5,14 +5,8 @@ import { cn } from "../../../utils";
 const badgeStyles = cva('w-full rounded-full px-3 py-1', {
     variants: {
         variant: {
-            solid: [''],
-            outline: ['bg-transparent border-2']
-        },
-        colorScheme: {
-            primary: 'bg-primary-500 text-white',
-            success: 'bg-success-500 text-white',
-            danger: 'bg-danger-500 text-white',
-            alert: 'bg-yellow-500 text-black',
+            solid: '',
+            outline: 'bg-transparent border-2'
         },
         size: {
             sm: 'text-sm',
@@ -26,68 +20,37 @@ const badgeStyles = cva('w-full rounded-full px-3 py-1', {
             '6xl': 'text-6xl',
         },
     },
-    compoundVariants: [
-        {
-            variant: 'solid',
-            colorScheme: 'primary',
-            className: 'bg-primary-500 text-white',
-        },
-        {
-            variant: 'outline',
-            colorScheme: 'primary',
-            className: 'bg-transparent border-primary-500 text-primary-600',
-        },
-        {
-            variant: 'solid',
-            colorScheme: 'success',
-            className: 'bg-success-500 text-white',
-        },
-        {
-            variant: 'outline',
-            colorScheme: 'success',
-            className: 'bg-transparent border-success-500 text-success-600',
-        },
-        {
-            variant: 'solid',
-            colorScheme: 'danger',
-            className: 'bg-danger-500 text-white',
-        },
-        {
-            variant: 'outline',
-            colorScheme: 'danger',
-            className: 'bg-transparent border-danger-500 text-danger-600',
-        },
-        {
-            variant: 'solid',
-            colorScheme: 'alert',
-            className: 'bg-yellow-500 text-black',
-        },
-        {
-            variant: 'outline',
-            colorScheme: 'alert',
-            className: 'bg-transparent border-yellow-500 text-yellow-600',
-        },
-    ],
     defaultVariants: {
         variant: 'solid',
-        colorScheme: 'primary',
         size: 'base',
     }
 });
 
-type BadgeProps = ComponentProps<'span'> & VariantProps<typeof badgeStyles>;
+type BadgeProps = ComponentProps<'span'> & VariantProps<typeof badgeStyles> & {
+    color?: string;
+};
 
 export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(({
     size,
     variant,
-    colorScheme,
+    color,
     className,
     ...props
-}: BadgeProps, ref) => {
+}, ref) => {
+    const style = variant === 'solid'
+        ? { backgroundColor: color, color: 'white' }
+        : { borderColor: color, color: color };
+
+    const combinedClass = cn(
+        badgeStyles({ size, variant }),
+        className
+    );
+
     return (
-        <span 
+        <span
             ref={ref}
-            className={cn(badgeStyles({ size, variant, colorScheme }), className)}
+            className={combinedClass}
+            style={style}
             {...props}
         />
     );
