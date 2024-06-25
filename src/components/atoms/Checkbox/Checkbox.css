@@ -1,10 +1,11 @@
 input[type="checkbox"] {
     position: relative;
+    border-color: var(--checked-color, currentColor);
 }
 
 input[type="checkbox"]:checked {
-    background-color: currentColor;
-    border-color: currentColor;
+    background-color: var(--checked-color, currentColor);
+    border-color: var(--checked-color, currentColor);
 }
 
 input[type="checkbox"]:checked::before {

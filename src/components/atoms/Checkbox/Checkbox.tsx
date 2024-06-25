@@ -24,13 +24,14 @@ const checkboxStyles = cva('', {
 
 type CheckboxProps = ComponentProps<'input'> & VariantProps<typeof checkboxStyles> & {
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    checkedColor?: string;
 };
 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({
     size,
     shape,
-    color,
     className,
+    checkedColor,
     onChange,
     ...props
 }, ref) => {
@@ -39,10 +40,10 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({
             <input
                 type="checkbox"
                 ref={ref}
+                style={{ '--checked-color': checkedColor } as React.CSSProperties}
                 className={cn(
                     'appearance-none border-2 focus:outline-none cursor-pointer',
                     checkboxStyles({ size, shape }),
-                    color,
                     className
                 )}
                 onChange={onChange}

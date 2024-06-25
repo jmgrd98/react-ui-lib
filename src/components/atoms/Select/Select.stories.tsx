@@ -29,6 +29,7 @@ export const Default: Story = {
                 value: '3',
             },
         ],
+        search: true
     },
 };
 

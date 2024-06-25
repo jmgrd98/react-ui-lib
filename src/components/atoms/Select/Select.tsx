@@ -2,6 +2,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import { ChangeEvent, ComponentProps, forwardRef, useState, useRef, useEffect } from "react";
 import { cn } from "../../../utils";
 import { FaChevronDown } from "react-icons/fa";
+import Input from "../Input/Input";
 
 const selectStyles = cva('', {
     variants: {
@@ -31,6 +32,7 @@ type SelectProps = ComponentProps<'select'> & VariantProps<typeof selectStyles> 
     onChange?: (event: ChangeEvent<HTMLSelectElement>) => void;
     options: { label: string; value: string }[];
     error?: boolean;
+    search?: boolean;
 };
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
@@ -38,11 +40,13 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
     className,
     disabled,
     error,
+    search,
     onChange,
     ...props
 }, ref) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
+    const [searchTerm, setSearchTerm] = useState('');
     const selectRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -69,6 +73,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
         if (!disabled) {
             setSelectedOption(value);
             setIsOpen(false);
+            setSearchTerm('');
             if (onChange) {
                 const selectedOption = options.find(option => option.value === value);
                 if (selectedOption) {
@@ -82,6 +87,14 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
             }
         }
     };
+
+    const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const filteredOptions = options.filter(option =>
+        option.label.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     return (
         <div className="relative" ref={selectRef}>
@@ -114,20 +127,33 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
             </div>
             {isOpen && (
                 <div className="absolute mt-1 w-full rounded-md bg-white shadow-lg z-10">
-                    {options.map(option => (
-                        <div
-                            key={option.value}
-                            className={cn(
-                                'cursor-pointer py-2 px-4',
-                                'hover:bg-gray-100',
-                                'hover:text-gray-900',
-                                'select-none',
-                            )}
-                            onClick={() => handleOptionClick(option.value)}
-                        >
-                            {option.label}
-                        </div>
-                    ))}
+                    {search && <Input
+                        type="text"
+                        className="w-full p-2 border-b-2 border-gray-300"
+                        placeholder="Search..."
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                    />}
+                    <div>
+                        {filteredOptions.length > 0 ? (
+                            filteredOptions.map(option => (
+                                <div
+                                    key={option.value}
+                                    className={cn(
+                                        'cursor-pointer py-2 px-4',
+                                        'hover:bg-gray-100',
+                                        'hover:text-gray-900',
+                                        'select-none',
+                                    )}
+                                    onClick={() => handleOptionClick(option.value)}
+                                >
+                                    {option.label}
+                                </div>
+                            ))
+                        ) : (
+                            <div className="py-2 px-4 text-gray-500">No options found</div>
+                        )}
+                    </div>
                 </div>
             )}
         </div>

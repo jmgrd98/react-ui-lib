@@ -1,5 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
-import Accordion, { AccordionProps } from './Accordion';
+import { Accordion, AccordionProps } from './Accordion';
+import { Item } from './Accordion'; // Import the Item component
+import { Text } from '../../atoms/Text/Text';
 
 const meta: Meta<typeof Accordion> = {
     title: 'Components/Molecules/Accordion',
@@ -16,15 +18,15 @@ type AccordionStory = StoryObj<AccordionProps>;
 export const Default: AccordionStory = {
     render: (args) => (
         <Accordion {...args}>
-            <Accordion.Item title="Section 1">
-                <p>This is the content of section 1.</p>
-            </Accordion.Item>
-            <Accordion.Item title="Section 2">
-                <p>This is the content of section 2.</p>
-            </Accordion.Item>
-            <Accordion.Item title="Section 3">
-                <p>This is the content of section 3.</p>
-            </Accordion.Item>
+            <Item title="Section 1">
+                <Text>This is the content of section 1.</Text>
+            </Item>
+            <Item title="Section 2">
+                <Text>This is the content of section 2.</Text>
+            </Item>
+            <Item title="Section 3">
+                <Text>This is the content of section 3.</Text>
+            </Item>
         </Accordion>
     )
 };

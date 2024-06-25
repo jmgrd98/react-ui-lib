@@ -15,16 +15,37 @@ export type AccordionProps = {
     className?: string;
 };
 
-type AccordionItemProps = {
+type ItemProps = {
     title: string;
     children: ReactNode;
 };
 
+export const Accordion = forwardRef<HTMLDivElement, AccordionProps>(({
+    children,
+    className,
+    ...props
+}, ref) => {
+    return (
+        <div
+            ref={ref}
+            className={cn('border', className)}
+            {...props}
+        >
+            {children}
+        </div>
+    );
+});
 
-const AccordionItem = ({ title, children }: AccordionItemProps) => {
+export const Item = forwardRef<HTMLDivElement, ItemProps>(({
+    title,
+    children,
+    ...props
+}, ref) => {
     const [isOpen, setIsOpen] = useState(false);
 
-    const toggleOpen = () => setIsOpen(!isOpen);
+    const toggleOpen = () => {
+        setIsOpen(!isOpen);
+    };
 
     return (
         <div className="border-b">
@@ -47,23 +68,4 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
             </div>
         </div>
     );
-};
-
-const Accordion = ({
-    children,
-    className,
-    ...props
-}: AccordionProps) => {
-    return (
-        <div
-            className={cn(accordionStyles(), className)}
-            {...props}
-        >
-            {children}
-        </div>
-    );
-};
-
-Accordion.Item = AccordionItem;
-
-export default Accordion;
+});
