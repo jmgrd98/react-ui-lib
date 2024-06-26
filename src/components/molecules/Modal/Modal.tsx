@@ -1,5 +1,4 @@
 import { forwardRef, ReactNode, CSSProperties } from "react";
-import { cn } from "../../../utils";
 import Card from "../Card/Card";
 
 export type ModalProps = {

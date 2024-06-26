@@ -1,7 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import Alert from "./Alert";
 import { FaExclamationTriangle, FaInfoCircle, FaCheckCircle } from "react-icons/fa";
-import Button from "../../atoms/Button/Button";
 
 const meta: Meta<typeof Alert> = {
     title: "Components/Molecules/Alert",

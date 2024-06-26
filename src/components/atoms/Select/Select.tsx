@@ -43,7 +43,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
     search,
     onChange,
     ...props
-}, ref) => {
+}) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
     const [searchTerm, setSearchTerm] = useState('');

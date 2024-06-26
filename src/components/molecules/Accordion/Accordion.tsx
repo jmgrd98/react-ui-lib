@@ -28,7 +28,7 @@ export const Accordion = forwardRef<HTMLDivElement, AccordionProps>(({
     return (
         <div
             ref={ref}
-            className={cn('border', className)}
+            className={cn(accordionStyles(), 'border', className)}
             {...props}
         >
             {children}
@@ -48,7 +48,7 @@ export const Item = forwardRef<HTMLDivElement, ItemProps>(({
     };
 
     return (
-        <div className="border-b">
+        <div ref={ref} className="border-b" {...props}>
             <button
                 onClick={toggleOpen}
                 className="w-full text-left p-4 font-medium flex justify-between items-center"

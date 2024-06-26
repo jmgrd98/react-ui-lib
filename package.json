@@ -1,6 +1,5 @@
 {
-  "name": "ui-components-lib",
-  "private": true,
+  "name": "ui-components-lib-jmgrd98-test",
   "version": "0.0.0",
   "type": "module",
   "files": [
@@ -28,7 +27,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.2.1",
-    "tailwind-merge": "^2.3.0"
+    "tailwind-merge": "^2.3.0",
+    "ui-components-lib-jmgrd98-test": "^0.0.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.5.0",
