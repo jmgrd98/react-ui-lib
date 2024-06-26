@@ -41,6 +41,13 @@ export const Date: Story = {
     },
 };
 
+export const PIN: Story = {
+    args: {
+        type: 'pin',
+        placeholder: 'Digite seu PIN'
+    }
+};
+
 export const CPF: Story = {
     args: {
         type: 'cpf',

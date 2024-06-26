@@ -1,7 +1,7 @@
 import { VariantProps, cva } from "class-variance-authority";
 import { ComponentProps, forwardRef } from "react"
 import { cn } from "../../../utils";
-import { Text } from "../Text/Text";
+import { Text } from "../../atoms/Text/Text";
 
 const textareaStyles = cva([
     'w-full',

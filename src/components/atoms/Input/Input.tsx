@@ -21,7 +21,7 @@ const inputStyles = cva([
 
 type InputProps = ComponentProps<"input"> & {
     label?: string;
-    type?: 'text' | 'password' | 'number' | 'date' | 'cpf' | 'cnpj';
+    type?: 'text' | 'password' | 'number' | 'date' | 'cpf' | 'cnpj' | 'pin'; // Added 'pin' type
 } & VariantProps<typeof inputStyles>;
 
 const formatCpf = (value: string) => {
@@ -43,6 +43,10 @@ const formatCnpj = (value: string) => {
         .replace(/(\d{4})(\d{1,2})$/, '$1-$2');
 };
 
+const formatPin = (value: string) => {
+    return value.replace(/\D/g, '').slice(0, 4); // Limits to 4 digits for PIN
+};
+
 export const Input = forwardRef<HTMLInputElement, InputProps>(({
     className,
     type = 'text',
@@ -60,6 +64,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
                 break;
             case 'cnpj':
                 value = formatCnpj(value);
+                break;
+            case 'pin': // Handle PIN format
+                value = formatPin(value);
                 break;
             case 'number':
                 value = value.replace(/\D/g, ''); // Remove non-numeric characters

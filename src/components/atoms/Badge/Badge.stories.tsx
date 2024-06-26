@@ -12,20 +12,38 @@ const meta: Meta<typeof Badge> = {
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type BadgeStory = StoryObj<typeof Badge>;
 
-export const Solid: Story = {
+export const Solid: BadgeStory = {
     args: {
         variant: 'solid',
         color: '#45db35',
-        children: "badge"
+        children: "Badge",
     },
 };
 
-export const Outline: Story = {
+export const Outline: BadgeStory = {
     args: {
         variant: 'outline',
         color: '#45db35',
-        children: "badge"
+        children: "Badge",
     },
 };
+
+export const SolidWithClose: BadgeStory = {
+    args: {
+        variant: 'solid',
+        color: '#45db35',
+        children: "Badge",
+        withClose: true,
+    },
+}
+
+export const OutlineWithClose: BadgeStory = {
+    args: {
+        variant: 'outline',
+        color: '#45db35',
+        children: "Badge",
+        withClose: true,
+    },
+}

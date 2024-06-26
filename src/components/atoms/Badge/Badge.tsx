@@ -1,12 +1,13 @@
-import { cva, VariantProps } from "class-variance-authority";
-import { ComponentProps, forwardRef } from "react";
-import { cn } from "../../../utils";
+import { ComponentProps, forwardRef } from 'react';
+import { IoClose } from 'react-icons/io5';
+import { cn } from '../../../utils';
+import { cva, VariantProps } from 'class-variance-authority';
 
 const badgeStyles = cva('w-full rounded-full px-3 py-1', {
     variants: {
         variant: {
             solid: '',
-            outline: 'bg-transparent border-2'
+            outline: 'bg-transparent border-2',
         },
         size: {
             sm: 'text-sm',
@@ -23,37 +24,40 @@ const badgeStyles = cva('w-full rounded-full px-3 py-1', {
     defaultVariants: {
         variant: 'solid',
         size: 'base',
+    },
+});
+
+type BadgeProps = ComponentProps<'span'> &
+    VariantProps<typeof badgeStyles> & {
+        color?: string;
+        withClose?: boolean;
+        onClose?: () => void;
+    };
+
+export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
+    ({ size, variant, color, withClose, onClose, className, ...props }, ref) => {
+        const style =
+            variant === 'solid'
+                ? { backgroundColor: color, color: 'white' }
+                : { borderColor: color, color: color };
+
+        const combinedClass = cn(badgeStyles({ size, variant }), className);
+
+        return (
+            <span ref={ref} className={combinedClass} style={style} {...props}>
+                {props.children}
+                {withClose && (
+                    <button
+                        type="button"
+                        className="ml-2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                        onClick={onClose}
+                    >
+                        <IoClose size={18} />
+                    </button>
+                )}
+            </span>
+        );
     }
-});
-
-type BadgeProps = ComponentProps<'span'> & VariantProps<typeof badgeStyles> & {
-    color?: string;
-};
-
-export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(({
-    size,
-    variant,
-    color,
-    className,
-    ...props
-}, ref) => {
-    const style = variant === 'solid'
-        ? { backgroundColor: color, color: 'white' }
-        : { borderColor: color, color: color };
-
-    const combinedClass = cn(
-        badgeStyles({ size, variant }),
-        className
-    );
-
-    return (
-        <span
-            ref={ref}
-            className={combinedClass}
-            style={style}
-            {...props}
-        />
-    );
-});
+);
 
 export default Badge;

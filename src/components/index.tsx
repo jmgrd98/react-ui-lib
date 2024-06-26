@@ -4,7 +4,7 @@ export * from './atoms/Checkbox/Checkbox';
 export * from './atoms/Input/Input';
 export * from './atoms/Select/Select';
 export * from './atoms/Text/Text';
-export * from './atoms/Textarea/Textarea';
+export * from './molecules/Textarea/Textarea';
 export * from './molecules/Accordion/Accordion';
 export * from './molecules/Alert/Alert';
 export * from './molecules/Card/Card';

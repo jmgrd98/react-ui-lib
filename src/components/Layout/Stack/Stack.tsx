@@ -1,5 +1,5 @@
 import { cn } from '../../../utils';
-import { Box, BoxProps, } from '../Box/Box'
+import { Box, BoxProps } from '../Box/Box'
 
 type StackProps = BoxProps;
 const Stack = ({
