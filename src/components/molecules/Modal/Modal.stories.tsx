@@ -20,6 +20,7 @@ const meta: Meta<typeof Modal> = {
             </div>
         ),
     ],
+    tags: ['autodocss']
 };
 
 export default meta;

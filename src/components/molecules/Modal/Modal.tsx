@@ -1,5 +1,6 @@
 import { forwardRef, ReactNode, CSSProperties } from "react";
 import Card from "../Card/Card";
+import { IoClose } from "react-icons/io5";
 
 export type ModalProps = {
     isOpen: boolean;
@@ -38,7 +39,7 @@ const Modal = forwardRef<HTMLDivElement, ModalProps>(({
                     onClick={onClose}
                     className="absolute top-2 right-2 text-gray-700 hover:text-gray-900"
                 >
-                    ✖
+                    <IoClose className="h-6 w-6" />
                 </button>
                 {children}
             </Card>
