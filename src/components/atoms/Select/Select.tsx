@@ -28,11 +28,16 @@ const selectStyles = cva('', {
     }
 });
 
+type OptionObject = { label: string; value: string };
+type OptionType = OptionObject | string;
+
 type SelectProps = ComponentProps<'select'> & VariantProps<typeof selectStyles> & {
     onChange?: (event: ChangeEvent<HTMLSelectElement>) => void;
-    options: { label: string; value: string }[];
+    options: OptionType[];
     error?: boolean;
     search?: boolean;
+    showIcon?: boolean;
+    placeholder?: string;
 };
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
@@ -41,7 +46,9 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
     disabled,
     error,
     search,
+    showIcon = true,
     onChange,
+    placeholder = 'Select',
     ...props
 }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -75,15 +82,12 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
             setIsOpen(false);
             setSearchTerm('');
             if (onChange) {
-                const selectedOption = options.find(option => option.value === value);
-                if (selectedOption) {
-                    onChange({
-                        target: {
-                            value: selectedOption.value,
-                            name: props.name || '',
-                        },
-                    } as ChangeEvent<HTMLSelectElement>);
-                }
+                onChange({
+                    target: {
+                        value,
+                        name: props.name || '',
+                    },
+                } as ChangeEvent<HTMLSelectElement>);
             }
         }
     };
@@ -92,12 +96,25 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
         setSearchTerm(event.target.value);
     };
 
-    const filteredOptions = options.filter(option =>
-        option.label.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const isOptionObject = (option: OptionType): option is OptionObject => {
+        return (option as OptionObject).label !== undefined && (option as OptionObject).value !== undefined;
+    };
+
+    const filteredOptions = options.filter(option => {
+        const label = isOptionObject(option) ? option.label : option;
+        return label.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+
+    const getOptionLabel = (option: OptionType): string => {
+        return isOptionObject(option) ? option.label : option;
+    };
+
+    const getOptionValue = (option: OptionType): string => {
+        return isOptionObject(option) ? option.value : option;
+    };
 
     return (
-        <div className="relative" ref={selectRef}>
+        <div className="relative w-full" ref={selectRef}>
             <div
                 className={cn(
                     'appearance-none border-2 focus:outline-none cursor-pointer flex items-center justify-between',
@@ -113,17 +130,18 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
                 )}
                 onClick={toggleDropdown}
             >
-                <span>{selectedOption ? options.find(option => option.value === selectedOption)?.label : 'Select'}</span>
-                <FaChevronDown
-                    className={cn(
-                        'ml-2',
-                        'transform',
-                        isOpen ? 'rotate-180' : 'rotate-0',
-                        'transition-transform',
-                        'duration-300',
-                        error ? 'text-red-600' : 'text-gray-600'
-                    )}
-                />
+                <span>{selectedOption ? getOptionLabel(options.find(option => getOptionValue(option) === selectedOption)!) : placeholder}</span>
+                {showIcon && <FaChevronDown
+                                className={cn(
+                                    'ml-2',
+                                    'transform',
+                                    isOpen ? 'rotate-180' : 'rotate-0',
+                                    'transition-transform',
+                                    'duration-300',
+                                    error ? 'text-red-600' : 'text-gray-600'
+                                )}
+                            />
+                        }
             </div>
             {isOpen && (
                 <div className="absolute mt-1 w-full rounded-md bg-white shadow-lg z-10">
@@ -134,20 +152,20 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
                         value={searchTerm}
                         onChange={handleSearchChange}
                     />}
-                    <div>
+                    <div className="bg-white w-full w-60 overflow-y-auto">
                         {filteredOptions.length > 0 ? (
                             filteredOptions.map(option => (
                                 <div
-                                    key={option.value}
+                                    key={getOptionValue(option)}
                                     className={cn(
                                         'cursor-pointer py-2 px-4',
                                         'hover:bg-gray-100',
                                         'hover:text-gray-900',
                                         'select-none',
                                     )}
-                                    onClick={() => handleOptionClick(option.value)}
+                                    onClick={() => handleOptionClick(getOptionValue(option))}
                                 >
-                                    {option.label}
+                                    {getOptionLabel(option)}
                                 </div>
                             ))
                         ) : (
