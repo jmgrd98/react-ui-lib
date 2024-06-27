@@ -12,7 +12,7 @@ const Tooltip = ({ content, position = 'top', className, children }: TooltipProp
     const [isVisible, setIsVisible] = useState(false);
 
     return (
-        <div className="relative inline-block">
+        <div className="relative inline-block m-4">
             <div
                 onMouseEnter={() => setIsVisible(true)}
                 onMouseLeave={() => setIsVisible(false)}

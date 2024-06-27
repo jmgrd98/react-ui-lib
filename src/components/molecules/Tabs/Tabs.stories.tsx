@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import Tabs, { Tab } from './Tabs';
+import { Tabs, TabsProps, Tab } from './Tabs';
 
 const meta: Meta<typeof Tabs> = {
     title: 'Components/Molecules/Tabs',
@@ -7,19 +7,26 @@ const meta: Meta<typeof Tabs> = {
     parameters: {
         layout: 'centered',
     },
-    tags: ['autodocs'],
 };
 
 export default meta;
 
-type TabsStory = StoryObj;
+type Story = StoryObj<TabsProps>;
 
-export const Default: TabsStory = {
-    render: (args: any, ref: any) => (
-        <Tabs ref={ref} {...args} className="w-full">
-            <Tab label="Tab 1">Content for Tab 1</Tab>
-            <Tab label="Tab 2">Content for Tab 2</Tab>
-            <Tab label="Tab 3">Content for Tab 3</Tab>
+export const Default: Story = {
+    render: (args) => (
+        <Tabs {...args}>
+            <Tab label="Tab 1">
+                <div>Content for Tab 1</div>
+            </Tab>
+            <Tab label="Tab 2">
+                <div>Content for Tab 2</div>
+            </Tab>
+            <Tab label="Tab 3">
+                <div>Content for Tab 3</div>
+            </Tab>
         </Tabs>
     ),
 };
+
+Default.args = {};

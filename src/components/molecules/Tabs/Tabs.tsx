@@ -10,6 +10,8 @@ export type TabsProps = {
     className?: string;
 };
 
+const Tab = ({ children }: TabProps) => <div>{children}</div>;
+
 const Tabs = forwardRef<HTMLDivElement, TabsProps>(({ children, className }, ref) => {
     const [activeTab, setActiveTab] = useState(0);
 
@@ -36,11 +38,9 @@ const Tabs = forwardRef<HTMLDivElement, TabsProps>(({ children, className }, ref
                     </button>
                 ))}
             </div>
-            <div className="mt-4">{tabs[activeTab]}</div>
+            <div className="mt-4">{tabs[activeTab].props.children}</div>
         </div>
     );
 });
 
-export const Tab = ({ children }: TabProps) => <div>{children}</div>;
-
-export default Tabs;
+export { Tabs, Tab };

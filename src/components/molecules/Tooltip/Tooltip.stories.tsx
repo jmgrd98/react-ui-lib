@@ -36,7 +36,7 @@ export const Top: TooltipStory = (args: any) => (
             <Text size="sm">This is some description text in the tooltip.</Text>
         </>
     }>
-        <Button label={'Hover me'} className="bg-blue-500 hover:bg-blue-600 text-white mb-4" />
+        <Button label={'Hover me'} className="bg-blue-500 hover:bg-blue-600 text-white" />
     </Tooltip>
 );
 
@@ -45,14 +45,12 @@ Top.args = {
 };
 
 export const Right: TooltipStory = (args: any) => (
-    <Tooltip {...args} content={
+    <Tooltip {...args} className='bg-green-500 text-white w-[200px] max-h-[200px]' content={
         <>
-            <Text size="base" weight="bold" className="mb-2">Tooltip Title</Text>
             <Text size="sm">This is some description text in the tooltip.</Text>
-            <Button variant="solid" size="sm" backgroundColor="#4CAF50" label="Click Me" className="mt-2" />
         </>
     }>
-        <Button label={'Hover me'} className="bg-blue-500 hover:bg-blue-600 text-white mb-4" />
+        <Button label={'Hover me'} className="bg-blue-500 hover:bg-blue-600 text-white" />
     </Tooltip>
 );
 
@@ -61,14 +59,12 @@ Right.args = {
 };
 
 export const Bottom: TooltipStory = (args: any) => (
-    <Tooltip {...args} content={
+    <Tooltip {...args} className='bg-green-500 text-white w-[200px] max-h-[200px]' content={
         <>
-            <Text size="base" weight="bold" className="mb-2">Tooltip Title</Text>
             <Text size="sm">This is some description text in the tooltip.</Text>
-            <Button variant="solid" size="sm" backgroundColor="#4CAF50" label="Click Me" className="mt-2" />
         </>
     }>
-        <Button label={'Hover me'} className="bg-blue-500 hover:bg-blue-600 text-white mb-4" />
+        <Button label={'Hover me'} className="bg-blue-500 hover:bg-blue-600 text-white" />
     </Tooltip>
 );
 
@@ -77,14 +73,12 @@ Bottom.args = {
 };
 
 export const Left: TooltipStory = (args: any) => (
-    <Tooltip {...args} content={
+    <Tooltip {...args} className='bg-green-500 text-white w-[200px] max-h-[200px]' content={
         <>
-            <Text size="base" weight="bold" className="mb-2">Tooltip Title</Text>
             <Text size="sm">This is some description text in the tooltip.</Text>
-            <Button variant="solid" size="sm" backgroundColor="#4CAF50" label="Click Me" className="mt-2" />
         </>
     }>
-        <Button label={'Hover me'} className="bg-blue-500 hover:bg-blue-600 text-white mb-4" />
+        <Button label={'Hover me'} className="bg-blue-500 hover:bg-blue-600 text-white" />
     </Tooltip>
 );
 
