@@ -1,7 +1,7 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import Calendar, { CalendarProps } from './Calendar';
 
-const meta: Meta<typeof Calendar> = {
+const meta: Meta<CalendarProps> = {
     title: 'Components/Molecules/Calendar',
     component: Calendar,
     parameters: {
@@ -11,19 +11,24 @@ const meta: Meta<typeof Calendar> = {
 
 export default meta;
 
-type CalendarStory = StoryObj<CalendarProps>;
+const Template: StoryFn<CalendarProps> = (args) => <Calendar {...args} />;
 
-export const Default: CalendarStory = {
-    args: {
-        className: 'border p-4',
-        onDateSelect: (date) => alert(`Date selected: ${date.toDateString()}`),
-    },
+export const Default = Template.bind({});
+Default.args = {
+    className: 'border p-4',
+    onDateSelect: (date: Date) => alert(`Date selected: ${date}`),
 };
 
-export const PastDatesDisabled: CalendarStory = {
-    args: {
-        className: 'border p-4',
-        onDateSelect: (date) => alert(`Date selected: ${date.toDateString()}`),
-        allowPastDates: false,
-    }
-}
+export const PastDatesDisabled = Template.bind({});
+PastDatesDisabled.args = {
+    className: 'border p-4',
+    allowPastDates: false,
+};
+
+export const RangeCalendar = Template.bind({});
+RangeCalendar.args = {
+    className: 'border p-4',
+    range: true,
+    onRangeSelect: (startDate: Date, endDate: Date) =>
+        alert(`Range selected: ${startDate.toDateString()} - ${endDate.toDateString()}`),
+};

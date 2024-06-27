@@ -7,7 +7,9 @@ import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 export type CalendarProps = {
     className?: string;
     onDateSelect?: (date: Date) => void;
-    allowPastDates?: boolean; // New prop
+    allowPastDates?: boolean;
+    range?: boolean;
+    onRangeSelect?: (startDate: Date, endDate: Date) => void;
 };
 
 const months = [
@@ -30,9 +32,9 @@ const years = Array.from({ length: 100 }, (_, i) => {
     return { label: year.toString(), value: year.toString() };
 });
 
-const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({ className, onDateSelect, allowPastDates = true }, ref) => {
+const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({ className, onDateSelect, allowPastDates = true, range = false, onRangeSelect }, ref) => {
     const [currentDate, setCurrentDate] = useState(new Date());
-    const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+    const [selectedRange, setSelectedRange] = useState<Date[]>([]);
 
     const daysInMonth = eachDayOfInterval({
         start: startOfWeek(startOfMonth(currentDate)),
@@ -49,11 +51,30 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({ className, onDateS
 
     const handleDateSelect = (date: Date) => {
         if (!allowPastDates && date < new Date()) {
-            return; // Skip selecting past dates if allowPastDates is false
+            return;
         }
-        setSelectedDate(date);
-        if (onDateSelect) {
-            onDateSelect(date);
+
+        if (!range) {
+            setSelectedRange([date]);
+            if (onDateSelect) {
+                onDateSelect(date);
+            }
+        } else {
+            if (selectedRange.length === 2) {
+                setSelectedRange([date]);
+                if (onDateSelect) {
+                    onDateSelect(date);
+                }
+            } else if (selectedRange.length === 1) {
+                const [start, end] = selectedRange;
+                const newRange = eachDayOfInterval({ start, end: date });
+                setSelectedRange([start, date]);
+                if (onRangeSelect) {
+                    onRangeSelect(start, date);
+                }
+            } else {
+                setSelectedRange([date]);
+            }
         }
     };
 
@@ -101,6 +122,9 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({ className, onDateS
                 ))}
                 {daysInMonth.map((day: Date) => {
                     const isDisabled = !allowPastDates && day < new Date();
+                    const isSelected = selectedRange.some(selectedDay => format(selectedDay, 'yyyy-MM-dd') === format(day, 'yyyy-MM-dd'));
+                    const isInRange = selectedRange.length === 2 && day >= selectedRange[0] && day <= selectedRange[1];
+
                     return (
                         <div
                             key={day.toString()}
@@ -109,7 +133,8 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({ className, onDateS
                                 'py-2 rounded-lg cursor-pointer transition-colors',
                                 !isSameMonth(day, currentDate) ? 'text-gray-400' : '',
                                 isToday(day) ? 'bg-blue-500 text-white' : '',
-                                selectedDate && format(day, 'yyyy-MM-dd') === format(selectedDate, 'yyyy-MM-dd') ? 'bg-blue-700 text-white' : '',
+                                isSelected ? 'bg-blue-700 text-white' : '',
+                                isInRange && !isSelected ? 'bg-blue-200' : '',
                                 isDisabled ? 'text-gray-300 cursor-not-allowed' : 'hover:bg-blue-100'
                             )}
                             style={{ opacity: isDisabled ? 0.6 : 1, pointerEvents: isDisabled ? 'none' : 'auto' }}
