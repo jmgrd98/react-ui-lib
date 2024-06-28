@@ -41,14 +41,13 @@ const LoginForm = () => {
                 type='password'
                 id='password'
                 placeholder='Password'
-                className='mb-4'
             />
 
             <Button
                 label='Login'
                 type='submit'
                 variant={'solid'}
-                className='bg-blue-500 hover:bg-blue-600 text-white mb-10'
+                className='bg-blue-500 hover:bg-blue-600 text-white my-10'
             />
         </Stack>
     </Box>
