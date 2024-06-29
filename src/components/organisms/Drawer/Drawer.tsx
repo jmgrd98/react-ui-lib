@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, ReactNode, CSSProperties } from 'react';
+import React, { forwardRef, useImperativeHandle, ReactNode } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { cn } from '../../../utils';
 
@@ -16,7 +16,7 @@ export type DrawerHandle = {
 };
 
 const Drawer = forwardRef<DrawerHandle, DrawerProps>(
-    ({ isOpen, onClose, side = 'left', children, className }, ref) => {
+    ({ isOpen = false, onClose, side = 'left', children, className }, ref) => {
         useImperativeHandle(ref, () => ({
             open: () => onClose(),
             close: () => onClose(),
@@ -32,7 +32,7 @@ const Drawer = forwardRef<DrawerHandle, DrawerProps>(
         const positionClass = sideClasses[side] || sideClasses.left;
 
         return (
-            <div className={cn("fixed inset-0 z-50", className)}>
+            <div className={isOpen ? cn("fixed inset-0 z-50", className) : cn("fixed inset-0", className)}>
                 <div
                     className={cn(
                         "fixed inset-0 bg-black bg-opacity-50 transition-opacity",
