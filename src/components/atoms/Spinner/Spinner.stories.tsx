@@ -7,6 +7,13 @@ const meta: Meta<typeof Spinner> = {
     parameters: {
         layout: 'centered',
     },
+    argTypes: {
+        className: {
+            control: 'text',
+            description: 'CSS classes to apply to the spinner',
+            defaultValue: '',
+        },
+    },
 };
 
 export default meta;
@@ -14,11 +21,7 @@ export default meta;
 type SpinnerStory = StoryObj<SpinnerProps>;
 
 export const Small: SpinnerStory = {
-    render: (args) => <Spinner {...args} className="w-4 h-4" />
-};
-export const Medium: SpinnerStory = {
-    render: (args) => <Spinner {...args} className="w-8 h-8" />
-};
-export const Large: SpinnerStory = {
-    render: (args) => <Spinner {...args} className="w-12 h-12" />
+    args: {
+        className: 'w-10 h-10 border-red-500 border-t-transparent',
+    },
 };

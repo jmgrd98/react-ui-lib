@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { Meta, Story } from '@storybook/react';
+import { useState } from 'react';
+import { Meta, StoryObj } from '@storybook/react';
 import Pagination, { PaginationProps } from './Pagination';
 
 export default {
-    title: 'Components/Atoms/Pagination',
+    title: 'Components/Molecules/Pagination',
     component: Pagination,
     parameters: {
         layout: 'centered',
     },
 } as Meta;
 
-const Template: Story<PaginationProps> = (args) => {
+const Template: StoryObj<PaginationProps> = (args) => {
     const [currentPage, setCurrentPage] = useState(args.currentPage);
 
     const handlePageChange = (page: number) => {
