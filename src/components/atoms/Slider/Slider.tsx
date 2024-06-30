@@ -1,18 +1,18 @@
-import { forwardRef, useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 import { cn } from '../../../utils';
 
 export interface SliderProps {
-    value: number;
+    value: number | number[];
     min?: number;
     max?: number;
     step?: number;
     className?: string;
-    onChange?: (value: number) => void;
+    onChange?: (value: number | number[]) => void;
 }
 
 const Slider = forwardRef<HTMLInputElement, SliderProps>(
     ({ value, min = 0, max = 100, step = 1, className = '', onChange }, ref) => {
-        const [sliderValue, setSliderValue] = useState(value);
+        const [sliderValue, setSliderValue] = useState<number | number[]>(value);
 
         const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
             const newValue = parseInt(event.target.value, 10);
@@ -22,6 +22,9 @@ const Slider = forwardRef<HTMLInputElement, SliderProps>(
             }
         };
 
+        const isArrayValue = Array.isArray(sliderValue);
+        const sliderValues = isArrayValue ? sliderValue : [sliderValue, sliderValue];
+
         return (
             <input
                 ref={ref}
@@ -29,7 +32,7 @@ const Slider = forwardRef<HTMLInputElement, SliderProps>(
                 min={min}
                 max={max}
                 step={step}
-                value={sliderValue}
+                value={sliderValues[0]}
                 onChange={handleChange}
                 className={cn('slider', className)}
             />
