@@ -8,6 +8,10 @@ const meta: Meta<typeof Button> = {
         layout: 'centered',
     },
     tags: ['autodocs'],
+    argTypes: {
+        hoverColor: { control: 'color' },
+        activeColor: { control: 'color' },
+    },
 };
 
 export default meta;
@@ -22,6 +26,8 @@ Solid.args = {
     size: 'md',
     className: '',
     backgroundColor: '#30c422',
+    hoverColor: '#28a745',
+    activeColor: '#1e7e34',
     onClick: () => alert("Button clicked"),
 };
 
@@ -33,6 +39,8 @@ Outline.args = {
     size: 'md',
     className: '',
     backgroundColor: '#30c422',
+    hoverColor: '#28a745',
+    activeColor: '#1e7e34',
     onClick: () => alert("Button clicked"),
 };
 
@@ -44,5 +52,7 @@ Ghost.args = {
     size: 'md',
     className: '',
     backgroundColor: '#30c422',
+    hoverColor: '#28a745',
+    activeColor: '#1e7e34',
     onClick: () => alert("Button clicked"),
 };

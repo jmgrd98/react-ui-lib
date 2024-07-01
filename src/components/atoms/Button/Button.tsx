@@ -30,6 +30,8 @@ const buttonStyles = cva([
 type ButtonProps = ComponentProps<"button"> & VariantProps<typeof buttonStyles> & {
     backgroundColor?: string;
     label: string;
+    hoverColor?: string;
+    activeColor?: string;
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
@@ -38,6 +40,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
     backgroundColor,
     label,
     className,
+    hoverColor,
+    activeColor,
     onClick,
     ...props
 }, ref) => {
@@ -47,25 +51,18 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
     );
 
     const dynamicStyle = backgroundColor ? { backgroundColor } : {};
-
     const outlineStyle = backgroundColor
         ? { borderColor: backgroundColor, color: backgroundColor }
         : {};
+    const ghostStyles = variant === 'ghost' && backgroundColor ? {
+        color: backgroundColor,
+        backgroundColor: 'transparent'
+    } : {};
 
     const combinedStyles = 
         variant === 'solid' ? dynamicStyle :
         variant === 'outline' ? outlineStyle :
         {};
-
-    const hoverEffectStyles = 
-        variant === 'solid' ? { backgroundColor: `${backgroundColor}90` } :
-        variant === 'outline' ? { backgroundColor: `${backgroundColor}20` } :
-        variant === 'ghost' ? { backgroundColor: `${backgroundColor}20` } : {};
-
-    const ghostStyles = variant === 'ghost' && backgroundColor ? {
-        color: backgroundColor,
-        backgroundColor: 'transparent'
-    } : {};
 
     return (
         <button
@@ -75,10 +72,37 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
             onClick={onClick}
             {...props}
             onMouseEnter={(e) => {
-                Object.assign(e.currentTarget.style, hoverEffectStyles);
+                const hoverStyles = hoverColor
+                    ? { backgroundColor: hoverColor }
+                    : {
+                        backgroundColor: variant === 'solid' ? `${backgroundColor}90` : undefined,
+                        borderColor: variant === 'outline' ? hoverColor : undefined,
+                        color: variant === 'outline' ? hoverColor : undefined,
+                    };
+                Object.assign(e.currentTarget.style, hoverStyles);
             }}
             onMouseLeave={(e) => {
                 Object.assign(e.currentTarget.style, combinedStyles, ghostStyles);
+            }}
+            onMouseDown={(e) => {
+                const activeStyles = activeColor
+                    ? { backgroundColor: activeColor }
+                    : {
+                        backgroundColor: variant === 'solid' ? `${backgroundColor}70` : undefined,
+                        borderColor: variant === 'outline' ? activeColor : undefined,
+                        color: variant === 'outline' ? activeColor : undefined,
+                    };
+                Object.assign(e.currentTarget.style, activeStyles);
+            }}
+            onMouseUp={(e) => {
+                const hoverStyles = hoverColor
+                    ? { backgroundColor: hoverColor }
+                    : {
+                        backgroundColor: variant === 'solid' ? `${backgroundColor}90` : undefined,
+                        borderColor: variant === 'outline' ? hoverColor : undefined,
+                        color: variant === 'outline' ? hoverColor : undefined,
+                    };
+                Object.assign(e.currentTarget.style, hoverStyles);
             }}
         >
             {label}

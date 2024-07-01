@@ -22,26 +22,28 @@ const Carousel: React.FC<CarouselProps> = ({ children, className, visibleCount =
     };
 
     return (
-        <div className={cn("relative overflow-hidden", className)}>
+        <div className={cn("w-full relative flex items-center justify-between", className)}>
             <button
                 onClick={goToPrevious}
-                className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white rounded-full p-2 cursor-pointer z-10"
+                className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 cursor-pointer z-10"
             >
                 <FaChevronLeft className="text-gray-700" />
             </button>
-            <div
-                className="w-full flex transition-transform duration-500"
-                style={{ transform: `translateX(-${currentIndex * (100 / visibleCount)}%)`, width: `${100 * (length / visibleCount)}%` }}
-            >
-                {React.Children.map(children, (child, index) => (
-                    <div className="w-full" key={index} style={{ flex: `0 0 ${100 / visibleCount}%` }}>
-                        {child}
-                    </div>
-                ))}
+            <div className="max-w-full overflow-hidden">
+                <div
+                    className="flex transition-transform duration-500"
+                    style={{ transform: `translateX(-${currentIndex * (100 / visibleCount)}%)`, width: `${100 * (length / visibleCount)}%` }}
+                >
+                    {React.Children.map(children, (child, index) => (
+                        <div className="w-full " key={index} style={{ flex: `0 0 ${100 / visibleCount}%` }}>
+                            {child}
+                        </div>
+                    ))}
+                </div>
             </div>
             <button
                 onClick={goToNext}
-                className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white rounded-full p-2 cursor-pointer z-10"
+                className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 cursor-pointer z-10"
             >
                 <FaChevronRight className="text-gray-700" />
             </button>

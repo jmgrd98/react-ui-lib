@@ -36,6 +36,7 @@ export const SolidWithClose: BadgeStory = {
         color: '#45db35',
         children: "Badge",
         withClose: true,
+        onClose: () => {console.log('Fechar')},
     },
 }
 
@@ -45,5 +46,6 @@ export const OutlineWithClose: BadgeStory = {
         color: '#45db35',
         children: "Badge",
         withClose: true,
+        onClose: () => {console.log('Fechar')},
     },
 }

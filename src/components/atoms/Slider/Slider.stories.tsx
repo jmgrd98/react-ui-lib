@@ -1,5 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import Slider, { SliderProps } from './Slider';
+import { useState } from 'react';
+import { action } from '@storybook/addon-actions';
 
 const meta: Meta<typeof Slider> = {
     title: 'Components/Atoms/Slider',
@@ -12,12 +14,24 @@ const meta: Meta<typeof Slider> = {
 
 export default meta;
 
-const Template: StoryObj<SliderProps> = (args) => (
-    <div className="flex items-center space-x-4">
-        <Slider {...args} />
-        <span>{Array.isArray(args.value) ? `${args.value[0]} - ${args.value[1]}` : args.value}</span>
-    </div>
-);
+const Template: StoryObj<SliderProps> = (args) => {
+    const [value, setValue] = useState<number | [number, number]>(args.value);
+
+    const handleChange = (newValue: number | [number, number]) => {
+        setValue(newValue);
+        action('changed')(newValue); // Log the change action
+        if (args.onChange) {
+            args.onChange(newValue);
+        }
+    };
+
+    return (
+        <div className="flex items-center space-x-4">
+            <Slider {...args} value={value} onChange={handleChange} />
+            <span>{Array.isArray(value) ? `${value[0]} - ${value[1]}` : value}</span>
+        </div>
+    );
+};
 
 export const Default = Template.bind({});
 Default.args = {
@@ -26,22 +40,5 @@ Default.args = {
     max: 100,
     step: 1,
     className: 'w-64',
-};
-
-export const RangeMode = Template.bind({});
-RangeMode.args = {
-    value: [30, 70],
-    min: 0,
-    max: 100,
-    step: 1,
-    className: 'w-64',
-};
-
-export const CustomRange = Template.bind({});
-CustomRange.args = {
-    value: [10, 90],
-    min: 0,
-    max: 100,
-    step: 1,
-    className: 'w-64',
+    onChange: action('changed'),
 };

@@ -44,12 +44,12 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
         const combinedClass = cn(badgeStyles({ size, variant }), className);
 
         return (
-            <span ref={ref} className={combinedClass} style={style} {...props}>
+            <span ref={ref} className={cn(combinedClass, 'flex items-center')} style={style} {...props}>
                 {props.children}
                 {withClose && (
                     <button
                         type="button"
-                        className="ml-2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                        className={variant == 'outline' ? `${combinedClass} border-none` : "ml-2 text-white focus:outline-none"}
                         onClick={onClose}
                     >
                         <IoClose size={18} />

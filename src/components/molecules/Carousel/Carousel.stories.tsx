@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import Carousel from './Carousel';
 import Card from "../Card/Card";
+import Button from "../../atoms/Button/Button";
 
 const meta: Meta<typeof Carousel> = {
     title: 'Components/Molecules/Carousel',
@@ -17,15 +18,19 @@ type Story = StoryObj<typeof meta>;
 const slides = [
     <Card width={300} height={200} className='border-red-500' key={0}>
         <p>Slide 1</p>
+        <Button label="teste" className='bg-red-500' />
     </Card>,
     <Card width={300} height={200} className='border-blue-500'  key={1}>
         <p>Slide 2</p>
+        <Button label="teste" className='bg-red-500' />
     </Card>,
     <Card width={300} height={200} className='border-green-500'  key={2}>
         <p>Slide 3</p>
+        <Button label="teste" className='bg-red-500' />
     </Card>,
     <Card width={300} height={200} className='border-yellow-500'  key={3}>
         <p>Slide 4</p>
+        <Button label="teste" className='bg-red-500' />
     </Card>,
     <Card width={300} height={200} className='border-purple-500'  key={4}>
         <p>Slide 5</p>
