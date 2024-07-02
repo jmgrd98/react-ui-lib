@@ -22,12 +22,12 @@ const checkboxStyles = cva('', {
     }
 });
 
-type CheckboxProps = ComponentProps<'input'> & VariantProps<typeof checkboxStyles> & {
+type CheckboxComponentProps = ComponentProps<'input'> & VariantProps<typeof checkboxStyles> & {
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
     checkedColor?: string;
 };
 
-export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({
+export const Checkbox = forwardRef<HTMLInputElement, CheckboxComponentProps>(({
     size,
     shape,
     className,

@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, ReactNode } from 'react';
+import { forwardRef, useImperativeHandle, ReactNode } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { cn } from '../../../utils';
 

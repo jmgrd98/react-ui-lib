@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import OtpInput, { OtpInputProps } from './OtpInput';
+import OtpInput from './OtpInput';
 
 const meta: Meta<typeof OtpInput> = {
     title: 'Components/Atoms/OtpInput',

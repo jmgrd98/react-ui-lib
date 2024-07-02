@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 import Counter, { CounterProps, CounterHandle } from './Counter';
 
@@ -15,7 +15,7 @@ export default meta;
 
 type Story = StoryObj<CounterProps>;
 
-const Template: Story = (args) => {
+const Template: any = (args: CounterProps) => {
     const counterRef = useRef<CounterHandle>(null);
 
     const handleReset = () => {

@@ -1,5 +1,5 @@
 {
-  "name": "ui-components-lib-jmgrd98-test",
+  "name": "atomic-design-ui",
   "version": "0.0.0",
   "type": "module",
   "files": [
@@ -20,12 +20,14 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test": "jest"
+    "test": "jest",
+    "publish": "npm publish --access public"
   },
   "transform": {
     "\\.js$": "<rootDir>/node_modules/babel-jest"
   },
   "dependencies": {
+    "@babel/preset-flow": "^7.24.7",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",

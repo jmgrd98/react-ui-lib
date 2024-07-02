@@ -14,9 +14,9 @@ const meta: Meta<typeof Autocomplete> = {
 
 export default meta;
 
-type Story = StoryObj<AutocompleteProps>;
+type Story = StoryObj<typeof meta>;
 
-const Template: Story = (args: AutocompleteProps) => {
+const Template: any = (args: AutocompleteProps) => {
     const [selectedValue, setSelectedValue] = useState('');
 
     const handleSelect = (value: string) => {

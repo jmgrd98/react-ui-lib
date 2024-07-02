@@ -9,8 +9,6 @@ const meta: Meta<typeof Header> = {
     },
     argTypes: {
         bgColor: { control: 'color' },
-        hoverColor: { control: 'color' },
-        activeColor: { control: 'color' },
     },
 };
 
@@ -23,8 +21,6 @@ export const Default: Story = {
         className: '',
         logoText: 'MyApp',
         bgColor: 'white',
-        hoverColor: '#007BFF',
-        activeColor: '',
         onSearch: (query) => console.log('Search:', query),
     } as const,
 } as const;

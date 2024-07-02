@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import Switch, { SwitchProps } from './Switch';
 
 const meta: Meta = {
@@ -16,12 +16,13 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: StoryObj<SwitchProps> = (args) => {
+const Template: any = (args: SwitchProps) => {
     const [isChecked, setIsChecked] = useState(args.checked);
 
-    const handleChange = (checked: boolean) => {
+    const handleChange = (event: any) => {
+        const checked = event.target.checked;
         setIsChecked(checked);
-        args.onChange && args.onChange(checked);
+        args.onChange && args.onChange(event);
     };
 
     return <Switch {...args} checked={isChecked} onChange={handleChange} />;

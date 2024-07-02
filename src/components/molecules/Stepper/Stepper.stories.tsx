@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
+import { Meta } from '@storybook/react';
 import Stepper, { StepperProps } from './Stepper';
 
 const meta: Meta = {
@@ -12,7 +12,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: StoryObj<StepperProps> = (args) => {
+const Template: any = (args: StepperProps) => {
     const [value, setValue] = useState(args.value || 0);
 
     const handleChange = (newValue: number) => {
@@ -22,7 +22,7 @@ const Template: StoryObj<StepperProps> = (args) => {
     return <Stepper {...args} value={value} onChange={handleChange} />;
 };
 
-export const Default: Story<StepperProps> = Template.bind({});
+export const Default: any = Template.bind({});
 Default.args = {
     value: 0,
     min: 0,
@@ -30,7 +30,7 @@ Default.args = {
     step: 1,
 };
 
-export const SmallRange: Story<StepperProps> = Template.bind({});
+export const SmallRange: any = Template.bind({});
 SmallRange.args = {
     value: 5,
     min: 0,
@@ -38,7 +38,7 @@ SmallRange.args = {
     step: 1,
 };
 
-export const LargeRange: Story<StepperProps> = Template.bind({});
+export const LargeRange: any = Template.bind({});
 LargeRange.args = {
     value: 50,
     min: 0,
@@ -46,7 +46,7 @@ LargeRange.args = {
     step: 5,
 };
 
-export const CustomStep: Story<StepperProps> = Template.bind({});
+export const CustomStep: any = Template.bind({});
 CustomStep.args = {
     value: 10,
     min: 0,
@@ -54,7 +54,7 @@ CustomStep.args = {
     step: 10,
 };
 
-export const Disabled: Story<StepperProps> = Template.bind({});
+export const Disabled: any = Template.bind({});
 Disabled.args = {
     value: 0,
     min: 0,

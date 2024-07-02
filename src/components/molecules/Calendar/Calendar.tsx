@@ -66,8 +66,8 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({ className, onDateS
                     onDateSelect(date);
                 }
             } else if (selectedRange.length === 1) {
-                const [start, end] = selectedRange;
-                const newRange = eachDayOfInterval({ start, end: date });
+                const [start] = selectedRange;
+                // const newRange = eachDayOfInterval({ start, end: date });
                 setSelectedRange([start, date]);
                 if (onRangeSelect) {
                     onRangeSelect(start, date);

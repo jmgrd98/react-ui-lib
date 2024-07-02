@@ -1,7 +1,7 @@
 import Counter from "./Counter";
 import { render } from '@testing-library/react';
 
-describe(Counter, () => {
+describe('Counter', () => {
     it("should render", () => {
         expect(Counter).toBeTruthy();
     });
@@ -9,7 +9,6 @@ describe(Counter, () => {
     it("counter displays correct initial count", () => {
         const { getByTestId } = render(<Counter initialCount={10} />);
         const countValue = getByTestId("counter").textContent;
-        expect(countValue).toEqual(0);
+        expect(countValue).toEqual('10');
     });
-})
-
+});

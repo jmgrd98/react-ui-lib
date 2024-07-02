@@ -1,4 +1,4 @@
-import { useState, forwardRef, useImperativeHandle, Ref } from 'react';
+import { useState, forwardRef, useImperativeHandle } from 'react';
 import Button from '../../atoms/Button/Button';
 
 export interface CounterProps {

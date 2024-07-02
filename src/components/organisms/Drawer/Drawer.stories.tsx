@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 import Drawer, { DrawerProps } from './Drawer';
 import Button from '../../atoms/Button/Button';
@@ -32,7 +32,7 @@ export default meta;
 
 type DrawerStory = StoryObj<DrawerProps>;
 
-const Template: DrawerStory = (args: DrawerProps) => {
+const Template: any = (args: DrawerProps) => {
     const [isOpen, setIsOpen] = useState(args.isOpen);
 
     const handleOpen = () => setIsOpen(true);

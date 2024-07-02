@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import Slider, { SliderProps } from './Slider';
 import { useState } from 'react';
 import { action } from '@storybook/addon-actions';
@@ -14,12 +14,12 @@ const meta: Meta<typeof Slider> = {
 
 export default meta;
 
-const Template: StoryObj<SliderProps> = (args) => {
+const Template: any = (args: SliderProps) => {
     const [value, setValue] = useState<number | [number, number]>(args.value);
 
     const handleChange = (newValue: number | [number, number]) => {
         setValue(newValue);
-        action('changed')(newValue); // Log the change action
+        action('changed')(newValue);
         if (args.onChange) {
             args.onChange(newValue);
         }

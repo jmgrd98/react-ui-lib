@@ -1,7 +1,5 @@
 import React from 'react';
 import { cn } from '../../../utils';
-import { Box, BoxProps } from '../Box/Box';
-
 
 export type FlexProps = {
     direction?: 'row' | 'row-reverse' | 'col' | 'col-reverse';

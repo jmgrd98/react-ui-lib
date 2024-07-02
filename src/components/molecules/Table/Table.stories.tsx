@@ -1,5 +1,4 @@
-import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import Table, { TableProps } from './Table';
 
 const meta: Meta = {
@@ -12,7 +11,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<TableProps> = (args) => (
+const Template: any = (args: TableProps) => (
     <div className="p-4">
         <Table {...args} />
     </div>
@@ -40,7 +39,7 @@ CustomRenderTable.args = {
         {
             key: 'status',
             title: 'Status',
-            render: (item) => <span className={item.status === 'active' ? 'text-green-600' : 'text-red-600'}>{item.status}</span>,
+            render: (item: any) => <span className={item.status === 'active' ? 'text-green-600' : 'text-red-600'}>{item.status}</span>,
         },
     ],
     data: [
