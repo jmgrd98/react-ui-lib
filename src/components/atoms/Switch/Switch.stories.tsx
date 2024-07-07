@@ -20,7 +20,7 @@ const Template: any = (args: SwitchProps) => {
     const [isChecked, setIsChecked] = useState(args.checked);
 
     const handleChange = (event: any) => {
-        const checked = event.target.checked;
+        const checked = event;
         setIsChecked(checked);
         args.onChange && args.onChange(event);
     };

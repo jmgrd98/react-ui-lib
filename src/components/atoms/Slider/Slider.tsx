@@ -1,5 +1,7 @@
+import React from 'react';
 import { forwardRef, useState } from 'react';
 import { cn } from '../../../utils';
+import '@testing-library/jest-dom';
 
 export interface SliderProps {
     value: number | [number, number];
@@ -29,7 +31,7 @@ const Slider = forwardRef<HTMLInputElement, SliderProps>(
                 min={min}
                 max={max}
                 step={step}
-                value={typeof sliderValue === 'number' ? sliderValue : sliderValue[0]} // Assuming single value for now
+                value={typeof sliderValue === 'number' ? sliderValue : sliderValue[0]}
                 onChange={handleChange}
                 className={cn('slider', className)}
             />

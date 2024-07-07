@@ -1,3 +1,4 @@
+import React from 'react';
 import { VariantProps, cva } from "class-variance-authority";
 import { ComponentProps, forwardRef, ReactElement } from "react";
 import { cn } from "../../../utils";
@@ -16,7 +17,7 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(({
     children,
     width,
     height,
-    icon,  // Destructure the icon prop
+    icon,
     ...props
 }, ref) => {
     const inlineStyles = {
@@ -33,7 +34,7 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(({
             className={cn(alertStyles(), className)}
             {...props}
         >
-            {icon && <div className="icon-container mb-2">{icon}</div>}
+            {icon && <div data-testid="icon" className="icon-container mb-2">{icon}</div>}
             {children}
         </Card>
     );

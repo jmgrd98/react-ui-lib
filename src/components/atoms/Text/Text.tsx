@@ -1,3 +1,4 @@
+import React from 'react';
 import { cva, VariantProps } from "class-variance-authority";
 import { forwardRef } from "react";
 import { PolymorphicComponentPropsWithRef, PolymorphicRef } from "../../../utils/types";

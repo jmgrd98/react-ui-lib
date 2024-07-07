@@ -1,5 +1,7 @@
+import React from 'react';
 import { forwardRef, InputHTMLAttributes } from 'react';
 import { cn } from '../../../utils';
+import '@testing-library/jest-dom';
 
 export type SwitchProps = InputHTMLAttributes<HTMLInputElement> & {
     checked?: boolean;

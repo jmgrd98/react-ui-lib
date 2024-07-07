@@ -1,3 +1,4 @@
+import React from 'react';
 import { forwardRef, useState, ImgHTMLAttributes } from 'react';
 import { cn } from '../../../utils';
 

@@ -1,3 +1,4 @@
+import React from 'react';
 import { cva, VariantProps } from "class-variance-authority";
 import { ChangeEvent, ComponentProps, forwardRef, useState, useRef, useEffect } from "react";
 import { cn } from "../../../utils";
@@ -31,16 +32,17 @@ const selectStyles = cva('', {
 type OptionObject = { label: string; value: string };
 type OptionType = OptionObject | string;
 
-type SelectProps = ComponentProps<'select'> & VariantProps<typeof selectStyles> & {
+type SelectProps = ComponentProps<'div'> & VariantProps<typeof selectStyles> & {
     onChange?: (event: ChangeEvent<HTMLSelectElement>) => void;
     options: OptionType[];
     error?: boolean;
     search?: boolean;
+    disabled?: boolean;
     showIcon?: boolean;
     placeholder?: string;
 };
 
-export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
+export const Select = forwardRef<HTMLDivElement, SelectProps>(({
     options,
     className,
     disabled,
@@ -50,7 +52,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
     onChange,
     placeholder = 'Select',
     ...props
-}) => {
+}, ref) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
     const [searchTerm, setSearchTerm] = useState('');
@@ -85,7 +87,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
                 onChange({
                     target: {
                         value,
-                        name: props.name || '',
+                        id: props.id || '',
                     },
                 } as ChangeEvent<HTMLSelectElement>);
             }
@@ -114,12 +116,12 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
     };
 
     return (
-        <div className="relative w-full" ref={selectRef}>
+        <div className="relative w-full" ref={ref}>
             <div
                 className={cn(
                     'appearance-none border-2 focus:outline-none cursor-pointer flex items-center justify-between',
                     selectStyles({ state: disabled ? 'disabled' : error ? 'error' : undefined }),
-                    error ? 'text-red-600' : 'bg-white text-gray-800',
+                    error ? 'border-red-600' : 'bg-white text-gray-800',
                     'border-gray-300',
                     'rounded',
                     error ? '' : 'hover:border-gray-400',
@@ -129,6 +131,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
                     className
                 )}
                 onClick={toggleDropdown}
+                ref={selectRef}
             >
                 <span>{selectedOption ? getOptionLabel(options.find(option => getOptionValue(option) === selectedOption)!) : placeholder}</span>
                 {showIcon && <FaChevronDown

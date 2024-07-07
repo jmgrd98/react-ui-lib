@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react';
+import React, { FormEvent, forwardRef, useState } from 'react';
 import { format, startOfMonth, endOfMonth, eachDayOfInterval, startOfWeek, endOfWeek, isSameMonth, isToday, addMonths, subMonths, setMonth, setYear, getYear, getMonth } from 'date-fns';
 import { cn } from "../../../utils";
 import Select from '../../atoms/Select/Select';
@@ -95,22 +95,22 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({ className, onDateS
                     <FaChevronLeft />
                 </button>
                 <div className="flex items-center space-x-2">
-                    <Select 
-                        placeholder={currentDate.toLocaleDateString('pt-BR', { month: 'long' }).charAt(0).toUpperCase() + currentDate.toLocaleDateString('pt-BR', { month: 'long' }).slice(1)}
-                        value={getMonth(currentDate)}
-                        options={months}
-                        onChange={handleMonthChange}
-                        className="border-none font-semibold"
-                        showIcon={false}
-                    />
-                    <Select 
-                        placeholder={currentDate.toLocaleDateString('pt-BR', { year: 'numeric' }).toString()}
-                        value={getYear(currentDate)}
-                        options={years}
-                        onChange={handleYearChange}
-                        className="border-none font-semibold"
-                        showIcon={false}
-                    />
+                <Select
+                    placeholder={currentDate.toLocaleDateString('pt-BR', { month: 'long' }).charAt(0).toUpperCase() + currentDate.toLocaleDateString('pt-BR', { month: 'long' }).slice(1)}
+                    value={getMonth(currentDate)}
+                    options={months}
+                    onChange={(event: FormEvent<HTMLSelectElement>) => handleMonthChange(event as React.ChangeEvent<HTMLSelectElement>)}
+                    className="border-none font-semibold"
+                    showIcon={false}
+                />
+                <Select
+                    placeholder={currentDate.toLocaleDateString('pt-BR', { year: 'numeric' }).toString()}
+                    value={getYear(currentDate)}
+                    options={years}
+                    onChange={(event: FormEvent<HTMLSelectElement>) => handleYearChange(event as React.ChangeEvent<HTMLSelectElement>)}
+                    className="border-none font-semibold"
+                    showIcon={false}
+                />
                 </div>
                 <button className="text-gray-500 hover:text-black" onClick={handleNextMonth}>
                     <FaChevronRight />

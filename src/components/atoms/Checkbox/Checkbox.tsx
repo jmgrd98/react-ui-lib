@@ -22,7 +22,7 @@ const checkboxStyles = cva('', {
     }
 });
 
-type CheckboxComponentProps = ComponentProps<'input'> & VariantProps<typeof checkboxStyles> & {
+type CheckboxComponentProps = Omit<ComponentProps<'input'>, 'size'> & VariantProps<typeof checkboxStyles> & {
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
     checkedColor?: string;
 };
